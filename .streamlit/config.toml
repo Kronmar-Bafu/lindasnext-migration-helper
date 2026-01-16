@@ -11,3 +11,5 @@ enableWebsocketCompression = false
 
 [browser]
 gatherUsageStats = false
+serverAddress = "iq293zctgb.eu-central-1.awsapprunner.com"
+serverPort = 443
