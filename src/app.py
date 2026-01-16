@@ -4,6 +4,8 @@ import requests
 import unicodedata
 from rdflib import Graph
 from rdflib.compare import to_isomorphic, graph_diff
+from pathlib import Path
+import os
 
 # --- Setup and Load Config ---
 st.set_page_config(page_title="RDF Sync Validator", page_icon="⚖️", layout="wide")
@@ -11,7 +13,11 @@ st.set_page_config(page_title="RDF Sync Validator", page_icon="⚖️", layout="
 
 @st.cache_data
 def load_config():
-    with open("src/presets.yaml", "r") as f:
+    # This finds the absolute path to the directory where app.py lives
+    base_path = Path(__file__).parent
+    config_path = base_path / "presets.yaml"
+
+    with open(config_path, "r") as f:
         return yaml.safe_load(f)
 
 
