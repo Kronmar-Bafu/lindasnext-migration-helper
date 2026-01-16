@@ -106,17 +106,19 @@ if st.button("Run Comparison", type="primary"):
         st.warning("Please ensure all endpoints and IRIs are filled out.")
     else:
         try:
-            with st.spinner("Analyzing..."):
-                g1 = fetch_clean_graph(st_endpoint, st_graph_iri, excluded_uris)
-                g2 = fetch_clean_graph(gdb_endpoint, gdb_graph_iri, excluded_uris)
+            try:
+                with st.spinner("Analyzing..."):
+                    g1 = fetch_clean_graph(st_endpoint, st_graph_iri, excluded_uris)
+                    g2 = fetch_clean_graph(gdb_endpoint, gdb_graph_iri, excluded_uris)
 
-                col1, col2 = st.columns(2)
-                col1.metric(f"{st_env} Triples", len(g1))
-                col2.metric(f"{gdb_env} Triples", len(g2))
+                    # Check if graphs actually have data
+                    if len(g1) == 0:
+                        st.warning(f"Warning: Stardog graph <{st_graph_iri}> is empty!")
+                    if len(g2) == 0:
+                        st.warning(f"Warning: GraphDB graph <{gdb_graph_iri}> is empty!")
 
-                iso1 = to_isomorphic(g1)
-                iso2 = to_isomorphic(g2)
-
+                    iso1 = to_isomorphic(g1)
+                    iso2 = to_isomorphic(g2)
                 if iso1 == iso2:
                     st.success("Graphs are Identical")
                     st.balloons()
@@ -143,5 +145,7 @@ if st.button("Run Comparison", type="primary"):
                         if len(only_in_gdb) > 0:
                             st.download_button(f"Download {gdb_env} unique triples", diff_gdb, file_name="gdb_diff.nt")
 
+
         except Exception as e:
-            st.error(f"Error: {e}")
+            st.error(f"❌ Analysis failed!")
+            st.exception(e)
