@@ -7,26 +7,36 @@ from rdflib.compare import to_isomorphic, graph_diff
 from pathlib import Path
 import os
 
-# --- Setup and Load Config ---
-st.set_page_config(page_title="RDF Sync Validator", page_icon="⚖️", layout="wide")
+# 1. Absolute Path Discovery
+# This finds the directory where THIS file (app.py) is located
+BASE_DIR = Path(__file__).resolve().parent
 
 
 @st.cache_data
 def load_config():
-    # This finds the absolute path to the directory where app.py lives
-    base_path = Path(__file__).parent
-    config_path = base_path / "presets.yaml"
+    # Try to find presets.yaml in the same folder as app.py
+    config_path = BASE_DIR / "presets.yaml"
 
-    with open(config_path, "r") as f:
+    if not config_path.exists():
+        # DEBUG: If it fails, show the user the file system
+        st.error(f"Critical Error: File not found at {config_path}")
+        st.write("Files found in current directory:", os.listdir(BASE_DIR))
+        st.stop()
+
+    with open(config_path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
-config = load_config()
+# 2. Execution
+try:
+    # Set page config FIRST
+    st.set_page_config(page_title="RDF Sync Validator", page_icon="⚖️", layout="wide")
 
-# Extract mappings from YAML
-FILTER_MAP = config.get('filter_definitions', {})
-
-st.title("⚖️ RDF Sync Validator")
+    # Load Config
+    config = load_config()
+except Exception as e:
+    st.error(f"App failed to start: {e}")
+    st.stop()
 
 # --- Sidebar ---
 with st.sidebar:
