@@ -8,11 +8,11 @@ from pathlib import Path
 import os
 
 # 1. Absolute Path Discovery
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
+config_path = BASE_DIR / "presets.yaml"
 
 @st.cache_data
 def load_config():
-    config_path = BASE_DIR.parent / "presets.yaml"
     if not config_path.exists():
         st.error(f"Critical Error: File not found at {config_path}")
         st.write("Files found in current directory:", os.listdir(BASE_DIR))
