@@ -15,6 +15,7 @@ endpoints_graphdb:
 filter_definitions:
   "dcat:dateModified": "http://www.w3.org/ns/dcat#dateModified"
   "dct:modified": "http://purl.org/dc/terms/modified"
+
 # Comparison Cases
 presets:
   - name: "Forest Fire Prevention"
