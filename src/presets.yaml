@@ -1,0 +1,25 @@
+# Known SPARQL Endpoints
+endpoints_stardog:
+  - name: "LINDAS PROD"
+    url: "https://lindas.admin.ch/query"
+  - name: "LINDAS INT"
+    url: "https://int.lindas.admin.ch/query"
+
+endpoints_graphdb:
+  - name: "LINDASnext PROD"
+    url: "https://lindas.cz-aws.net/query"
+  - name: "LINDASnext INT"
+    url: "https://int.cz-aws.net/query"
+
+# Known FILTER
+filter_definitions:
+  "dcat:dateModified": "http://www.w3.org/ns/dcat#dateModified"
+  "dct:modified": "http://purl.org/dc/terms/modified"
+# Comparison Cases
+presets:
+  - name: "Forest Fire Prevention"
+    st_graph: "https://lindas.admin.ch/foen/gefahren-waldbrand-praeventionsmassnahmen-kantone"
+    gdb_graph: "https://lindas.admin.ch/foen/forest-fire-prevention-measures-cantons"
+  - name: "Forest Fire Risk Warning"
+    st_graph: "https://lindas.admin.ch/foen/gefahren-waldbrand-warnung"
+    gdb_graph: "https://lindas.admin.ch/foen/forest-fire-risk-warning"
