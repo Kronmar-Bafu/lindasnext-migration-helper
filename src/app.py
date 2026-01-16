@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent
 
 @st.cache_data
 def load_config():
-    config_path = BASE_DIR / "presets.yaml"
+    config_path = BASE_DIR.parent / "presets.yaml"
     if not config_path.exists():
         st.error(f"Critical Error: File not found at {config_path}")
         st.write("Files found in current directory:", os.listdir(BASE_DIR))
