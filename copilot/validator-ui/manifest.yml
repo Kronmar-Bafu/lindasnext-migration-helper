@@ -1,0 +1,25 @@
+# Your service name will be used in naming your resources like log groups, ECS services, etc.
+name: validator-ui
+type: Load Balanced Web Service
+
+# Distribute traffic to your service.
+http:
+  path: '/'
+  healthcheck: '/_stcore/health'
+  stickiness: true
+
+image:
+  build: Dockerfile
+  port: 8080
+
+cpu: 1024
+memory: 5120
+platform: linux/x86_64
+count: 1
+exec: true
+network:
+  connect: true
+
+variables:
+  STREAMLIT_SERVER_ENABLE_CORS: "false"
+  STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION: "false"

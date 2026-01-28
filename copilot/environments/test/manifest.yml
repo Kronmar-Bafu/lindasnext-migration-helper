@@ -1,0 +1,11 @@
+# copilot/environments/test/manifest.yml
+name: test
+type: Environment
+
+http:
+  public:
+    ingress:
+      waf: true
+
+observability:
+  container_insights: false
