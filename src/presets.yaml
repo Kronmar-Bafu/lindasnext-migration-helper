@@ -15,6 +15,7 @@ endpoints_graphdb:
 filter_definitions:
   "dcat:dateModified": "http://www.w3.org/ns/dcat#dateModified"
   "dct:modified": "http://purl.org/dc/terms/modified"
+  "schema:dateModified": "http://schema.org/dateModified"
 
 # Comparison Cases
 presets:
@@ -27,6 +28,9 @@ presets:
   - name: "5 - Gefahren Waldbrand Warnung"
     st_graph: "https://lindas.admin.ch/foen/gefahren-waldbrand-warnung"
     gdb_graph: "https://lindas.admin.ch/foen/forest-fire-risk-warning"
+  - name: "6 - Hydro real time"
+    st_graph: "https://lindas.admin.ch/foen/hydro"
+    gdb_graph: "https://lindas.admin.ch/foen/hydro-real-time"
   - name: "17 - WSL-Landesforstinventar"
     st_graph: "https://lindas.admin.ch/foen/nfi"
     gdb_graph: "https://lindas.admin.ch/foen/national-forest-inventory"
