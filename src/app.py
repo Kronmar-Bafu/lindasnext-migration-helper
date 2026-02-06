@@ -3,7 +3,7 @@ import yaml
 import requests
 import unicodedata
 import pandas as pd
-from rdflib import Graph
+from rdflib import Graph, Literal
 from rdflib.compare import to_isomorphic, graph_diff
 from pathlib import Path
 import random
@@ -53,8 +53,20 @@ def fetch_cube_metadata(endpoint, graph_iri, cube_iri, filter_uris=None):
     response = requests.get(endpoint, params={"query": query}, headers=headers, timeout=60)
     response.raise_for_status()
     g = Graph()
-    g.parse(data=unicodedata.normalize('NFC', response.text), format="nt")
+    g.parse(data=response.text, format="nt")  # Parse raw first
+    g = normalize_graph_literals(g)           # Then normalize objects
     return g
+
+
+def normalize_graph_literals(graph):
+    for s, p, o in graph:
+        if isinstance(o, Literal):
+            # Normalize the string content of the literal
+            norm_val = unicodedata.normalize('NFC', str(o))
+            if str(o) != norm_val:
+                graph.remove((s, p, o))
+                graph.add((s, p, Literal(norm_val, lang=o.language, datatype=o.datatype)))
+    return graph
 
 
 def fetch_subject_triples(endpoint, graph_iri, iri):
@@ -64,7 +76,8 @@ def fetch_subject_triples(endpoint, graph_iri, iri):
     response = requests.get(endpoint, params={"query": query}, headers=headers, timeout=60)
     response.raise_for_status()
     g = Graph()
-    g.parse(data=unicodedata.normalize('NFC', response.text), format="nt")
+    g.parse(data=response.text, format="nt")  # Parse raw first
+    g = normalize_graph_literals(g)           # Then normalize objects
     return g
 
 
@@ -85,7 +98,8 @@ def fetch_constraint_subgraph(endpoint, graph_iri, constraint_iri):
     response = requests.get(endpoint, params={"query": query}, headers=headers, timeout=120)
     response.raise_for_status()
     g = Graph()
-    g.parse(data=unicodedata.normalize('NFC', response.text), format="nt")
+    g.parse(data=response.text, format="nt")  # Parse raw first
+    g = normalize_graph_literals(g)  # Then normalize objects
     return g
 
 
@@ -99,7 +113,8 @@ def fetch_full_graph(endpoint, graph_iri, filter_uris):
     response = requests.get(endpoint, params={"query": query}, headers=headers, timeout=300)
     response.raise_for_status()
     g = Graph()
-    g.parse(data=unicodedata.normalize('NFC', response.text), format="nt")
+    g.parse(data=response.text, format="nt")  # Parse raw first
+    g = normalize_graph_literals(g)  # Then normalize objects
     return g
 
 

@@ -9,7 +9,7 @@ endpoints_graphdb:
   - name: "LINDASnext PROD"
     url: "https://lindas.cz-aws.net/query"
   - name: "LINDASnext INT"
-    url: "https://int.cz-aws.net/query"
+    url: "https://lindas.int.cz-aws.net/query"
 
 # Known FILTER
 filter_definitions:
@@ -31,6 +31,9 @@ presets:
   - name: "6 - Hydro real time"
     st_graph: "https://lindas.admin.ch/foen/hydro"
     gdb_graph: "https://lindas.admin.ch/foen/hydro-real-time"
+  - name: "16 - Testdatensätze Visualize"
+    st_graph: "https://lindas.admin.ch/foentest/pipeline-dev-testing"
+    gdb_graph: "https://lindas.admin.ch/foen/visualize-test"
   - name: "17 - WSL-Landesforstinventar"
     st_graph: "https://lindas.admin.ch/foen/nfi"
     gdb_graph: "https://lindas.admin.ch/foen/national-forest-inventory"
