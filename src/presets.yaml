@@ -30,7 +30,7 @@ presets:
     gdb_graph: "https://lindas.admin.ch/foen/forest-fire-risk-warning"
   - name: "6 - Hydro real time"
     st_graph: "https://lindas.admin.ch/foen/hydro"
-    gdb_graph: "https://lindas.admin.ch/foen/hydro-real-time"
+    gdb_graph: "https://lindas.admin.ch/foen/hydro"
   - name: "16 - Testdatensätze Visualize"
     st_graph: "https://lindas.admin.ch/foentest/pipeline-dev-testing"
     gdb_graph: "https://lindas.admin.ch/foen/visualize-test"
