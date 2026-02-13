@@ -8,7 +8,7 @@ transpiler_page = st.Page("pages/transpiler.py", title="Visualize Transpiler", i
 pg = st.navigation([validator_page, transpiler_page])
 
 # Shared configuration (optional)
-st.set_page_config(page_title="Swiss Admin Data Tools", layout="wide")
+st.set_page_config(page_title="Lindas migration tools", layout="wide")
 
 # Run the selected page
 pg.run()
